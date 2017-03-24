@@ -14,12 +14,20 @@ mask = cv2.inRange(image, lower, upper)
 (_, cnts, _) = cv2.findContours(mask.copy(), cv2.RETR_EXTERNAL,
   cv2.CHAIN_APPROX_SIMPLE)
 c = max(cnts, key=cv2.contourArea)
+for cnt in cnts:
+    k = cv2.isContourConvex(cnt)
+    print k
+    x,y,w,h = cv2.boundingRect(cnt)
+    cv2.rectangle(image,(x,y),(x+w,y+h),(0,255,0),2)
+#img = cv2.drawContours(image, cnts, -1, (0, 255, 0), 4)
+# cv2.imshow("Image", image)
 
 # approximate the contour
 peri = cv2.arcLength(c, True)
 approx = cv2.approxPolyDP(c, 0.05 * peri, True)
+#
 
-# draw a green bounding box surrounding the red game
+# # draw a green bounding box surrounding the red game
 cv2.drawContours(image, [approx], -1, (0, 255, 0), 4)
 cv2.imshow("Image", image)
 cv2.waitKey(0)
