@@ -37,17 +37,12 @@ image, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_A
 #     i += 1
 
 
-# loop over our contours
 for c in contours:
-    # approximate the contour
     peri = cv2.arcLength(c, True)
     approx = cv2.approxPolyDP(c, 0.02 * peri, True)
-
-    # if our approximated contour has four points, then
-    # we can assume that we have found our screen
     if len(approx) == 4:
-        screenCnt = approx
-        res = cv2.drawContours(img, [screenCnt], 0, (0, 255, 0), 2)
+        ctaCnt = approx
+        res = cv2.drawContours(img, [ctaCnt], 0, (0, 255, 0), 2)
         break
 ######
 cv2.imshow('img', img)
