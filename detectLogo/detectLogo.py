@@ -2,8 +2,8 @@
 import cv2
 import numpy as np
 
-fileName = '../materials/appui/0319_11.png'
-fileName_grayed = '../materials/appui/0319_11_gray.png'
+fileName = '../materials/appui/0319_15.png'
+fileName_grayed = '../materials/appui/0319_15_gray.png'
 # from matplotlib import pyplot as plt
 img = cv2.imread(fileName, 0)
 
