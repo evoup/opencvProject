@@ -6,7 +6,7 @@ for i in range(12, 13):
     im1 = cv2.imread('./materials/appui/0319_%d.png' % i)
     im2 = cv2.cvtColor(im1, cv2.COLOR_BGR2GRAY)
     #temp = cv2.imread('./materials/components/singleImage/play_game.png', 0)
-    temp = cv2.imread('./materials/components/base/sponsor_content.png', 0)
+    temp = cv2.imread('./materials/components/base/sponsor_content_zh.png', 0)
     w, h = temp.shape[::-1]
     method = cv2.TM_CCOEFF_NORMED
     # method = cv2.TM_CCOEFF
