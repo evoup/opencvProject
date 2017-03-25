@@ -34,7 +34,7 @@ for cnt in contours:
     box = np.int0(box)
     peri = cv2.arcLength(cnt, True)
     approx = cv2.approxPolyDP(cnt, 0.02 * peri, True)
-    if len(approx) == 4 and peri < float(1826) and peri > float(880):
+    if len(approx) >= 4 and peri < float(1826) and peri > float(130):
         res = cv2.drawContours(img, [box], 0, (0, 255, 0), 2)
         print 'contour %d drawed, perimeter:%d' % (i, peri)
         print approx
