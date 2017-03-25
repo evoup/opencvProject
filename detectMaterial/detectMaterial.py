@@ -39,11 +39,18 @@ for cnt in contours:
         print 'contour %d detected, perimeter:%d' % (i, peri)
         cntx0 = approx[0][0][0]
         cntx1 = approx[2][0][0]
-        print 'cnt left x:%d cnt right x:%d' % (cntx0, cntx1)
+        cnty0 = approx[0][0][1]
+        cnty1 = approx[2][0][1]
+        print 'cnt left x:%d cnt right x:%d top y:%d bottom y:%d' % (cntx0, cntx1, cnty0, cnty1)
         width = cntx1 - cntx0
+        height = cnty1 -cnty0
         if abs(402-width) > 5 and width > 100: # width limitation
-            res = cv2.drawContours(img, [box], 0, (0, 255, 0), 2)
-            print '>>draw contour %d' % i
+            if height > 100: # must be our target
+                res = cv2.drawContours(img, [box], 0, (0, 255, 0), 2)
+                print '>>draw contour %d' % i
+            else: # is a component area
+                res = cv2.drawContours(img, [box], 0, (0, 0, 255), 2)
+                print '>>draw contour %d' % i
         #print approx
         #break
 
