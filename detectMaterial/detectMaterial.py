@@ -2,8 +2,8 @@
 import cv2
 import numpy as np
 
-fileName = '../materials/appui/0319_15.png'
-fileName_grayed = '../materials/appui/0319_15_gray.png'
+fileName = '../materials/appui/0319_9.png'
+fileName_grayed = '../materials/appui/0319_9_gray.png'
 # from matplotlib import pyplot as plt
 img = cv2.imread(fileName, 0)
 
@@ -35,10 +35,16 @@ for cnt in contours:
     peri = cv2.arcLength(cnt, True)
     approx = cv2.approxPolyDP(cnt, 0.02 * peri, True)
     if len(approx) >= 4 and peri < float(1826) and peri > float(130):
-        res = cv2.drawContours(img, [box], 0, (0, 255, 0), 2)
-        print 'contour %d drawed, perimeter:%d' % (i, peri)
-        print approx
         i += 1
+        print 'contour %d detected, perimeter:%d' % (i, peri)
+        cntx0 = cnt[0][0][0]
+        cntx1 = cnt[2][0][0]
+        print 'cnt left x:%d cnt right x:%d' % (cntx0, cntx1)
+        width = cntx1 - cntx0
+        if abs(402-width) > 5: # width limitation
+            res = cv2.drawContours(img, [box], 0, (0, 255, 0), 2)
+            print 'draw contour %d' % i
+        #print approx
         #break
 
 
