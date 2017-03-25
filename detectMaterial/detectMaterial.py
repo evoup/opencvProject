@@ -37,13 +37,13 @@ for cnt in contours:
     if len(approx) >= 4 and peri < float(1826) and peri > float(130):
         i += 1
         print 'contour %d detected, perimeter:%d' % (i, peri)
-        cntx0 = cnt[0][0][0]
-        cntx1 = cnt[2][0][0]
+        cntx0 = approx[0][0][0]
+        cntx1 = approx[2][0][0]
         print 'cnt left x:%d cnt right x:%d' % (cntx0, cntx1)
         width = cntx1 - cntx0
-        if abs(402-width) > 5: # width limitation
+        if abs(402-width) > 5 and width > 100: # width limitation
             res = cv2.drawContours(img, [box], 0, (0, 255, 0), 2)
-            print 'draw contour %d' % i
+            print '>>draw contour %d' % i
         #print approx
         #break
 
