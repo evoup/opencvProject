@@ -25,25 +25,28 @@ resize()
 imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 ret, thresh = cv2.threshold(imgray, 250, 255, 0)
 image, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-# i = 0
-# for cnt in contours:
-#     x, y, w, h = cv2.boundingRect(cnt)
-#     cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
-#     rect = cv2.minAreaRect(cnt)
-#     box = cv2.boxPoints(rect)
-#     box = np.int0(box)
-#     res = cv2.drawContours(img, [box], 0, (0, 255, 0), 2)
-#     print 'contour %d drawed' % i
-#     i += 1
-
-
-for c in contours:
-    peri = cv2.arcLength(c, True)
-    approx = cv2.approxPolyDP(c, 0.02 * peri, True)
+i = 0
+for cnt in contours:
+    x, y, w, h = cv2.boundingRect(cnt)
+    cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
+    rect = cv2.minAreaRect(cnt)
+    box = cv2.boxPoints(rect)
+    box = np.int0(box)
+    peri = cv2.arcLength(cnt, True)
+    approx = cv2.approxPolyDP(cnt, 0.02 * peri, True)
     if len(approx) == 4:
-        ctaCnt = approx
-        res = cv2.drawContours(img, [ctaCnt], 0, (0, 255, 0), 2)
-        break
+        res = cv2.drawContours(img, [box], 0, (0, 255, 0), 2)
+    print 'contour %d drawed' % i
+    i += 1
+
+
+# for c in contours:
+#     peri = cv2.arcLength(c, True)
+#     approx = cv2.approxPolyDP(c, 0.02 * peri, True)
+#     if len(approx) == 4:
+#         ctaCnt = approx
+#         res = cv2.drawContours(img, [ctaCnt], 0, (0, 255, 0), 2)
+#         break
 ######
 cv2.imshow('img', img)
 cv2.waitKey(0)
