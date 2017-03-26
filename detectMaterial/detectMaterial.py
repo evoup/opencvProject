@@ -26,6 +26,7 @@ imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 ret, thresh = cv2.threshold(imgray, 250, 255, 0)
 image, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 i = 0
+adBoundPos = {}
 for cnt in contours:
     x, y, w, h = cv2.boundingRect(cnt)
     cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
@@ -47,14 +48,23 @@ for cnt in contours:
         if abs(402-width) > 5 and width > 100: # width limitation
             if height > 100: # must be our target
                 res = cv2.drawContours(img, [box], 0, (0, 255, 0), 2)
+                adBoundPos['topLeft'] = box[1]
+                adBoundPos['topRight'] = box[2]
+                adBoundPos['bottomLeft'] = box[0]
+                adBoundPos['bottomRight'] = box[3]
                 print '>>draw contour %d' % i
             else: # is a component area
                 res = cv2.drawContours(img, [box], 0, (0, 0, 255), 2)
+                componentHeight = box[0][1] - box[2][1]
+                adBoundPos['bottomLeft']=[adBoundPos['bottomLeft'][0], adBoundPos['bottomLeft'][1]-height-8]
+                adBoundPos['bottomRight'] = [adBoundPos['bottomRight'][0], adBoundPos['bottomRight'][1] - height-8]
                 print '>>draw contour %d' % i
         #print approx
         #break
-
-
+# draw ad area
+cv2.drawContours(img, [
+    np.array([adBoundPos['topLeft'], adBoundPos['bottomLeft'], adBoundPos['bottomRight'], adBoundPos['topRight']])],
+                 0, (255, 0, 0), 1)
 cv2.imshow('img', img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
