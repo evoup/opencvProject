@@ -3,18 +3,13 @@ import cv2
 import numpy as np
 import os
 
-fileName = os.getcwd() + '/materials/appui/screenshot.png'
-fileName_grayed = os.getcwd() + '/materials/appui/ad_gray.png'
-img = cv2.imread(fileName, 0)
-
-def resize():
-    global img
-    #height, width = img.shape[:2]
-    img = cv2.resize(img, (402, 743), interpolation=cv2.INTER_LINEAR)
-resize()
-
-
 def detect():
+    fileName = os.getcwd() + "/ad_screenshot.png"
+    #fileName = os.getcwd() + '/materials/appui/0419_2.png'
+    fileName_grayed = os.getcwd() + '/materials/appui/ad_gray.png'
+    img = cv2.imread(fileName, 0)
+    #resize()
+    img = cv2.resize(img, (402, 743), interpolation=cv2.INTER_LINEAR)
     global img
     _, img = cv2.threshold(img, 254, 255, cv2.THRESH_BINARY)
     cv2.imshow('img', img)
@@ -23,7 +18,7 @@ def detect():
     cv2.imwrite(fileName_grayed, img)
     oldImg = img.copy()
     img = cv2.imread(fileName_grayed, 1)
-    resize()
+    img = cv2.resize(img, (402, 743), interpolation=cv2.INTER_LINEAR)
     imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     ret, thresh = cv2.threshold(imgray, 250, 255, 0)
     image, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -70,10 +65,11 @@ def detect():
                      0, (255, 0, 0), 1)
     cv2.imshow('img', img)
     cv2.waitKey(0)
+    #time.sleep(3)
     cv2.destroyAllWindows()
 
-
-detect()
+if __name__ == "__main__":
+    detect()
 
 
 
