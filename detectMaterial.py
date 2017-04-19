@@ -3,8 +3,8 @@ import cv2
 import numpy as np
 import os
 
-fileName = os.getcwd() + '/../materials/appui/screenshot.png'
-fileName_grayed = os.getcwd() + '/../materials/appui/ad_gray.png'
+fileName = os.getcwd() + '/materials/appui/screenshot.png'
+fileName_grayed = os.getcwd() + '/materials/appui/ad_gray.png'
 img = cv2.imread(fileName, 0)
 
 def resize():
