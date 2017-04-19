@@ -16,14 +16,14 @@ def mainLoop():
     os.system(adbDir + "adb pull /sdcard/" + adScreenshotName)
     os.system(adbDir + "adb shell rm /sdcard/" + adScreenshotName)
     #time.sleep(5)
-    os.system("sleep 10")
+    #os.system("sleep 2")
     try:
         detect()
     except:
         print "mode recognize fail"
         cv2.destroyAllWindows()
     else:
-        print "mode reconnize success"
+        print "mode recognize success"
 
 
 if __name__ == "__main__":
