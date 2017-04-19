@@ -12,8 +12,8 @@ def detect():
     img = cv2.resize(img, (402, 743), interpolation=cv2.INTER_LINEAR)
     global img
     _, img = cv2.threshold(img, 254, 255, cv2.THRESH_BINARY)
-    cv2.imshow('img', img)
-    cv2.waitKey(0)
+    #cv2.imshow('img', img)
+    #cv2.waitKey(0)
     ######
     cv2.imwrite(fileName_grayed, img)
     oldImg = img.copy()

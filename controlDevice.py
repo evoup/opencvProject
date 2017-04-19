@@ -11,7 +11,7 @@ from detectMaterial import detect
 def mainLoop():
     adbDir = "/home/evoup/Android/Sdk/platform-tools/"
     adScreenshotName = "ad_screenshot.png"
-    os.system(adbDir + "adb shell input swipe 1250 1550 1250 1000")
+    os.system(adbDir + "adb shell input swipe 1250 1550 1250 1300")
     os.system(adbDir + "adb shell screencap /sdcard/" + adScreenshotName)
     os.system(adbDir + "adb pull /sdcard/" + adScreenshotName)
     os.system(adbDir + "adb shell rm /sdcard/" + adScreenshotName)
