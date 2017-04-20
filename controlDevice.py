@@ -6,15 +6,14 @@ import time
 import cv2
 
 from detectMaterial import detect
+from grab import adbGrap
 
+ADB_DIR = "/home/evoup/Android/Sdk/platform-tools/"
+FILE_NAME = "ad_screenshot.png"
 
 def mainLoop():
-    adbDir = "/home/evoup/Android/Sdk/platform-tools/"
-    adScreenshotName = "ad_screenshot.png"
-    os.system(adbDir + "adb shell input swipe 1250 1550 1250 1300")
-    os.system(adbDir + "adb shell screencap /sdcard/" + adScreenshotName)
-    os.system(adbDir + "adb pull /sdcard/" + adScreenshotName)
-    os.system(adbDir + "adb shell rm /sdcard/" + adScreenshotName)
+    os.system(ADB_DIR + "adb shell input swipe 1250 1550 1250 1300")
+    adbGrap(ADB_DIR, FILE_NAME)
     #time.sleep(5)
     #os.system("sleep 2")
     try:
@@ -24,6 +23,9 @@ def mainLoop():
         cv2.destroyAllWindows()
     else:
         print "mode recognize success"
+
+
+
 
 
 if __name__ == "__main__":

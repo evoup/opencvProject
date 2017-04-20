@@ -3,10 +3,16 @@ import cv2
 import numpy as np
 import os
 
+from grab import adbGrap
+
 SCREEN_WIDTH = 402
 SCREEN_HEIGHT = 743
+ADB_DIR = "/home/evoup/Android/Sdk/platform-tools/"
+FILE_NAME = "ad_screenshot.png"
+
+
 def detect():
-    fileName = os.getcwd() + "/ad_screenshot.png"
+    fileName = os.getcwd() + "/" + FILE_NAME
     #fileName = os.getcwd() + '/materials/appui/0419_2.png'
     fileName_grayed = os.getcwd() + '/materials/appui/ad_gray.png'
     img = cv2.imread(fileName, 0)
@@ -77,8 +83,13 @@ def detect():
 
 # is a carousel?
 def carouselDetect(adBoundPos):
-    if (adBoundPos['bottomRight'][0] - adBoundPos['bottomLeft'][0]) / float(SCREEN_WIDTH) > 0.7:
+    adWidthVSScreenWidth = (adBoundPos['bottomRight'][0] - adBoundPos['bottomLeft'][0]) / float(SCREEN_WIDTH)
+    if adWidthVSScreenWidth > 0.7 and adWidthVSScreenWidth < 0.75:
         print "it`s a carousel ad pane"
+        os.system(ADB_DIR + "adb shell input swipe 1250 1000 900 1000")
+        adbGrap(ADB_DIR, FILE_NAME)
+        detect()
+
 
 
 if __name__ == "__main__":
