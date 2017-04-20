@@ -3,13 +3,15 @@ import cv2
 import numpy as np
 import os
 
+SCREEN_WIDTH = 402
+SCREEN_HEIGHT = 743
 def detect():
     fileName = os.getcwd() + "/ad_screenshot.png"
     #fileName = os.getcwd() + '/materials/appui/0419_2.png'
     fileName_grayed = os.getcwd() + '/materials/appui/ad_gray.png'
     img = cv2.imread(fileName, 0)
     #resize()
-    img = cv2.resize(img, (402, 743), interpolation=cv2.INTER_LINEAR)
+    img = cv2.resize(img, (SCREEN_WIDTH, SCREEN_HEIGHT), interpolation=cv2.INTER_LINEAR)
     global img
     _, img = cv2.threshold(img, 254, 255, cv2.THRESH_BINARY)
     #cv2.imshow('img', img)
@@ -18,7 +20,7 @@ def detect():
     cv2.imwrite(fileName_grayed, img)
     oldImg = img.copy()
     img = cv2.imread(fileName_grayed, 1)
-    img = cv2.resize(img, (402, 743), interpolation=cv2.INTER_LINEAR)
+    img = cv2.resize(img, (SCREEN_WIDTH, SCREEN_HEIGHT), interpolation=cv2.INTER_LINEAR)
     imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     ret, thresh = cv2.threshold(imgray, 250, 255, 0)
     image, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
@@ -42,7 +44,7 @@ def detect():
             print 'cnt left x:%d cnt right x:%d top y:%d bottom y:%d' % (cntx0, cntx1, cnty0, cnty1)
             width = cntx1 - cntx0
             height = cnty1 - cnty0
-            if abs(402 - width) > 5 and width > 100:  # width limitation
+            if abs(SCREEN_WIDTH - width) > 5 and width > 100:  # width limitation
                 if height > 100:  # must be our target
                     res = cv2.drawContours(img, [box], 0, (0, 255, 0), 2)
                     adBoundPos['topLeft'] = box[1]
@@ -70,6 +72,14 @@ def detect():
     cv2.waitKey(0)
     #time.sleep(3)
     cv2.destroyAllWindows()
+    carouselDetect(adBoundPos)
+
+
+# is a carousel?
+def carouselDetect(adBoundPos):
+    if (adBoundPos['bottomRight'][0] - adBoundPos['bottomLeft'][0]) / float(SCREEN_WIDTH) > 0.7:
+        print "it`s a carousel ad pane"
+
 
 if __name__ == "__main__":
     detect()
