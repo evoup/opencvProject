@@ -60,9 +60,12 @@ def detect():
                     # print approx
                     # break
     # draw ad area
-    cv2.drawContours(img, [
-        np.array([adBoundPos['topLeft'], adBoundPos['bottomLeft'], adBoundPos['bottomRight'], adBoundPos['topRight']])],
-                     0, (255, 0, 0), 1)
+    if abs(adBoundPos['topLeft'][1] - adBoundPos['topRight'][1]) > 10:
+        print "not a valid rectangle region"
+    else:
+        cv2.drawContours(img, [
+            np.array([adBoundPos['topLeft'], adBoundPos['bottomLeft'], adBoundPos['bottomRight'], adBoundPos['topRight']])],
+                         0, (255, 0, 0), 1)
     cv2.imshow('img', img)
     cv2.waitKey(0)
     #time.sleep(3)
