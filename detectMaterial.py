@@ -3,12 +3,9 @@ import cv2
 import numpy as np
 import os
 
+from config import ADB_DIR, FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT
 from grab import adbGrap
 
-SCREEN_WIDTH = 402
-SCREEN_HEIGHT = 743
-ADB_DIR = "/home/evoup/Android/Sdk/platform-tools/"
-FILE_NAME = "ad_screenshot.png"
 
 
 def detect():
