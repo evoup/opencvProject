@@ -3,6 +3,8 @@ import cv2
 import numpy as np
 import os
 
+import time
+
 from config import ADB_DIR, FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT
 from grab import adbGrap
 
@@ -37,6 +39,7 @@ def detect():
         box = np.int0(box)
         peri = cv2.arcLength(cnt, True)
         approx = cv2.approxPolyDP(cnt, 0.02 * peri, True)
+        cv2.drawContours(img, [box], 0, (0, 255, 255), 2) # yellow means all polygon
         if len(approx) >= 4 and peri < float(1826) and peri > float(130):
             i += 1
             print 'contour %d detected, perimeter:%d' % (i, peri)
@@ -75,15 +78,17 @@ def detect():
     cv2.waitKey(0)
     #time.sleep(3)
     cv2.destroyAllWindows()
-    carouselDetect(adBoundPos)
+    carouselDetect(adBoundPos, img)
 
 
 # is a carousel?
-def carouselDetect(adBoundPos):
+def carouselDetect(adBoundPos, img):
     adWidthVSScreenWidth = (adBoundPos['bottomRight'][0] - adBoundPos['bottomLeft'][0]) / float(SCREEN_WIDTH)
     if adWidthVSScreenWidth > 0.7 and adWidthVSScreenWidth < 0.75:
         print "it`s a carousel ad pane"
         os.system(ADB_DIR + "adb shell input swipe 1250 1000 900 1000")
+        time.sleep(1)
+        # wait a moment to prevent hasn`t finish move
         adbGrap(ADB_DIR, FILE_NAME)
         detect()
 
@@ -91,8 +96,5 @@ def carouselDetect(adBoundPos):
 
 if __name__ == "__main__":
     detect()
-
-
-
 
 

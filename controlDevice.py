@@ -12,10 +12,9 @@ from grab import adbGrap
 
 
 def mainLoop():
-    os.system(ADB_DIR + "adb shell input swipe 1250 1550 1250 1300")
+    os.system(ADB_DIR + "adb shell input swipe 1250 1550 1200 1300")
     adbGrap(ADB_DIR, FILE_NAME)
-    #time.sleep(5)
-    #os.system("sleep 2")
+    detect()
     try:
         detect()
     except:
