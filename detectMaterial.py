@@ -78,11 +78,11 @@ def detect():
     cv2.waitKey(0)
     #time.sleep(3)
     cv2.destroyAllWindows()
-    carouselDetect(adBoundPos, img)
+    carouselDetect(adBoundPos)
 
 
 # is a carousel?
-def carouselDetect(adBoundPos, img):
+def carouselDetect(adBoundPos):
     adWidthVSScreenWidth = (adBoundPos['bottomRight'][0] - adBoundPos['bottomLeft'][0]) / float(SCREEN_WIDTH)
     if adWidthVSScreenWidth > 0.7 and adWidthVSScreenWidth < 0.75:
         print "it`s a carousel ad pane"

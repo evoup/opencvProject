@@ -14,7 +14,6 @@ from grab import adbGrap
 def mainLoop():
     os.system(ADB_DIR + "adb shell input swipe 1250 1550 1200 1300")
     adbGrap(ADB_DIR, FILE_NAME)
-    detect()
     try:
         detect()
     except:
