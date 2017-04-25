@@ -11,10 +11,11 @@ from uiMatch import checkTemplate
 
 
 def detect():
+    # fileName = os.getcwd() + '/materials/appui/0419_2.png'
     fileName = os.getcwd() + "/" + FILE_NAME
     tempImg = os.getcwd() + '/materials/components/base/sponsor_content_'+ COUNTRY + '.png'
-    checkTemplate(fileName, tempImg)
-    #fileName = os.getcwd() + '/materials/appui/0419_2.png'
+    if not checkTemplate(fileName, tempImg):
+       return
     fileName_grayed = os.getcwd() + '/materials/appui/ad_gray.png'
     img = cv2.imread(fileName, 0)
     #resize()
@@ -89,7 +90,7 @@ def carouselDetect(adBoundPos):
     if adWidthVSScreenWidth > 0.7 and adWidthVSScreenWidth < 0.75:
         print "it`s a carousel ad pane"
         os.system(ADB_DIR + "adb shell input swipe 1250 1000 900 1000")
-        time.sleep(1)
+        time.sleep(0.4)
         # wait a moment to prevent hasn`t finish move
         adbGrap(ADB_DIR, FILE_NAME)
         detect()
