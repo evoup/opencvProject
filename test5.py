@@ -17,7 +17,7 @@ for i in range(12, 13):
     loc = np.where(res >= threshold)
     for pt in zip(*loc[::-1]):
         cv2.rectangle(im1, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 12)
-        print "accuracyly matched"
+        print "accurately matched"
 
 
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)

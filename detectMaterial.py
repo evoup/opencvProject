@@ -5,13 +5,15 @@ import os
 
 import time
 
-from config import ADB_DIR, FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT
+from config import ADB_DIR, FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, COUNTRY
 from grab import adbGrap
-
+from uiMatch import checkTemplate
 
 
 def detect():
     fileName = os.getcwd() + "/" + FILE_NAME
+    tempImg = os.getcwd() + '/materials/components/base/sponsor_content_'+ COUNTRY + '.png'
+    checkTemplate(fileName, tempImg)
     #fileName = os.getcwd() + '/materials/appui/0419_2.png'
     fileName_grayed = os.getcwd() + '/materials/appui/ad_gray.png'
     img = cv2.imread(fileName, 0)
