@@ -100,7 +100,7 @@ def carouselDetect(adBoundPos):
         time.sleep(0.3)
         # wait a moment to prevent hasn`t finish move
         adbGrap(ADB_DIR, FILE_NAME)
-        detect()
+        carouselDetect(adBoundPos)
 
 
 
