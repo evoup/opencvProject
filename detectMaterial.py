@@ -90,7 +90,7 @@ def carouselDetect(adBoundPos):
     if adWidthVSScreenWidth > 0.7 and adWidthVSScreenWidth < 0.75:
         print "it`s a carousel ad pane"
         os.system(ADB_DIR + "adb shell input swipe 1250 1000 900 1000")
-        time.sleep(0.4)
+        time.sleep(0.3)
         # wait a moment to prevent hasn`t finish move
         adbGrap(ADB_DIR, FILE_NAME)
         detect()

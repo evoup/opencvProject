@@ -26,16 +26,24 @@ def checkTemplate(img, template):
         plt.title('Detected Point'), plt.xticks([]), plt.yticks([])
         plt.show()
         # 移动不好计算，从最低到最高，分三种情况
-        if pt[1] > 1500:
-            #vs = 0.268  # 移到最顶的情况下，赞助标记和整体屏幕的估计百分比
-            print "drag top"
-            distance = 2560 - pt[1]
-            distance = 1300 - distance
-            os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 " + repr(distance))  # 最低的情况，算偏移
+        if pt[1] > 2000:
+            os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 300")  # 最低的情况
+        if pt[1] > 1900:
+            os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 400")
+        if pt[1] > 1800:
+            os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 500")
+        if pt[1] > 1600:
+            os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 600")
+        elif pt[1] > 1400:
+            os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 700")
         elif pt[1] > 1200:
-            os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 700")  # 中间的情况，移动中等距离
-        elif pt[1] > 750:
-            os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 1000")  # 最上的情况，移动小量距离
+            os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 800")
+        elif pt[1] > 1000:
+            os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 900")
+        elif pt[1] > 800:
+            os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 1100")
+        elif pt[1] > 600:
+            os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 1100")  # 最上的情况
         return 1
     return 0
 

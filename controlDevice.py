@@ -12,15 +12,15 @@ from grab import adbGrap
 
 
 def mainLoop():
-    os.system(ADB_DIR + "adb shell input swipe 1250 1550 1200 1300")
+    os.system(ADB_DIR + "adb shell input swipe 1250 1550 1200 1400")
     adbGrap(ADB_DIR, FILE_NAME)
     try:
         detect()
     except:
-        print "mode recognize fail"
+        print "pattern recognize fail"
         cv2.destroyAllWindows()
     else:
-        print "mode recognize success"
+        print "pattern recognize success"
 
 
 
