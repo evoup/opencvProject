@@ -16,6 +16,8 @@ def detect():
     tempImg = os.getcwd() + '/materials/components/base/sponsor_content_'+ COUNTRY + '.png'
     if not checkTemplate(fileName, tempImg):
        return
+    time.sleep(0.3)
+    adbGrap(ADB_DIR, FILE_NAME)
     fileName_grayed = os.getcwd() + '/materials/appui/ad_gray.png'
     img = cv2.imread(fileName, 0)
     #resize()

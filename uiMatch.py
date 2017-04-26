@@ -28,11 +28,11 @@ def checkTemplate(img, template):
         # 移动不好计算，从最低到最高，分三种情况
         if pt[1] > 2000:
             os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 300")  # 最低的情况
-        if pt[1] > 1900:
+        elif pt[1] > 1900:
             os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 400")
-        if pt[1] > 1800:
+        elif pt[1] > 1800:
             os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 500")
-        if pt[1] > 1600:
+        elif pt[1] > 1600:
             os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 600")
         elif pt[1] > 1400:
             os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 700")
