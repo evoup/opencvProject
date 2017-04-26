@@ -73,17 +73,22 @@ def detect():
                     # print approx
                     # break
     # draw ad area
+    findMaterial = False
     if abs(adBoundPos['topLeft'][1] - adBoundPos['topRight'][1]) > 10:
         print "not a valid rectangle region"
     else:
         cv2.drawContours(img, [
             np.array([adBoundPos['topLeft'], adBoundPos['bottomLeft'], adBoundPos['bottomRight'], adBoundPos['topRight']])],
                          0, (255, 0, 0), 1)
+        print "got target material!"
+        findMaterial = True
     cv2.imshow('img', img)
     cv2.waitKey(0)
     #time.sleep(3)
     cv2.destroyAllWindows()
     carouselDetect(adBoundPos)
+    if findMaterial:
+        os.system(ADB_DIR + "adb shell input swipe 1250 1550 1200 1000")
 
 
 # is a carousel?
