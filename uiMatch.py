@@ -33,6 +33,9 @@ def checkTemplate(img, template):
         elif pt[1] > 2000:
             os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 300")
             print "y over 2000"
+        elif pt[1] > 1950:
+            os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 350")
+            print "y over 1950"
         elif pt[1] > 1900:
             os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 400")
             print "y over 1900"
@@ -45,6 +48,9 @@ def checkTemplate(img, template):
         elif pt[1] > 1400:
             os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 700")
             print "y over 1400"
+        elif pt[1] > 1300:  # this line is added when in emulator env
+            os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 750")
+            print "y over 1300"
         elif pt[1] > 1200:
             os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 800")
             print "y over 1200"
