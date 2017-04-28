@@ -5,3 +5,4 @@ FILE_NAME = "ad_screenshot.png"
 SCREEN_WIDTH = 402
 SCREEN_HEIGHT = 743
 COUNTRY = 'hk'
+MATERIAL_SAVE_DIR = '/home/evoup/project/data/grabMaterial/'

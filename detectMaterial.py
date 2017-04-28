@@ -82,6 +82,11 @@ def detect():
                          0, (255, 0, 0), 1)
         print "got target material!"
         findMaterial = True
+        #crop image by y1 y2 x1 x2
+        cropImage = img[adBoundPos['topLeft'][1]:adBoundPos['bottomRight'][1],
+                    adBoundPos['topLeft'][0]:adBoundPos['bottomRight'][1]].copy()
+        cv2.imshow("cropImage", cropImage)
+        cv2.waitKey(0)
     cv2.imshow('img', img)
     cv2.waitKey(0)
     #time.sleep(3)

@@ -61,7 +61,7 @@ def checkTemplate(img, template):
             os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 1100")
             print "y over 800"
         elif pt[1] > 600:
-            os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 1100")  # 最上的情况
+            os.system(ADB_DIR + "adb shell input swipe 1250 1300 1250 1150")  # 最上的情况
             print "y over 600"
         return 1
     return 0
