@@ -103,7 +103,13 @@ def carouselDetect(adBoundPos):
     adWidthVSScreenWidth = (adBoundPos['bottomRight'][0] - adBoundPos['bottomLeft'][0]) / float(SCREEN_WIDTH)
     if adWidthVSScreenWidth > 0.7 and adWidthVSScreenWidth < 0.75:
         print "it`s a carousel ad pane"
-        os.system(ADB_DIR + "adb shell input swipe 1250 1000 900 1000")
+        img1 = cv2.imread(os.getcwd() + "/" + FILE_NAME, 1)
+        img1 = cv2.resize(img1, (SCREEN_WIDTH, SCREEN_HEIGHT), interpolation=cv2.INTER_LINEAR)
+        cropImage = img1[adBoundPos['topLeft'][1]:adBoundPos['bottomRight'][1],
+                    adBoundPos['topLeft'][0]:adBoundPos['bottomRight'][0]].copy()
+        cv2.imshow("cropImage", cropImage)
+        cv2.waitKey(0)
+        os.system(ADB_DIR + "adb shell input swipe 1250 1300 900 1300")
         time.sleep(0.3)
         # wait a moment to prevent hasn`t finish move
         adbGrap(ADB_DIR, FILE_NAME)
