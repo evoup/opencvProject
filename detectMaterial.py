@@ -20,7 +20,7 @@ def detect():
     adbGrap(ADB_DIR, FILE_NAME)
     fileName_grayed = os.getcwd() + '/materials/appui/ad_gray.png'
     img = cv2.imread(fileName, 0)
-    #resize()
+    #resize
     img = cv2.resize(img, (SCREEN_WIDTH, SCREEN_HEIGHT), interpolation=cv2.INTER_LINEAR)
     global img
     _, img = cv2.threshold(img, 254, 255, cv2.THRESH_BINARY)
@@ -83,7 +83,9 @@ def detect():
         print "got target material!"
         findMaterial = True
         #crop image by y1 y2 x1 x2
-        cropImage = img[adBoundPos['topLeft'][1]:adBoundPos['bottomRight'][1],
+        img1 = cv2.imread(fileName, 1)
+        img1 = cv2.resize(img1, (SCREEN_WIDTH, SCREEN_HEIGHT), interpolation=cv2.INTER_LINEAR)
+        cropImage = img1[adBoundPos['topLeft'][1]:adBoundPos['bottomRight'][1],
                     adBoundPos['topLeft'][0]:adBoundPos['bottomRight'][1]].copy()
         cv2.imshow("cropImage", cropImage)
         cv2.waitKey(0)
