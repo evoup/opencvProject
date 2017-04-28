@@ -86,7 +86,7 @@ def detect():
         img1 = cv2.imread(fileName, 1)
         img1 = cv2.resize(img1, (SCREEN_WIDTH, SCREEN_HEIGHT), interpolation=cv2.INTER_LINEAR)
         cropImage = img1[adBoundPos['topLeft'][1]:adBoundPos['bottomRight'][1],
-                    adBoundPos['topLeft'][0]:adBoundPos['bottomRight'][1]].copy()
+                    adBoundPos['topLeft'][0]:adBoundPos['bottomRight'][0]].copy()
         cv2.imshow("cropImage", cropImage)
         cv2.waitKey(0)
     cv2.imshow('img', img)
