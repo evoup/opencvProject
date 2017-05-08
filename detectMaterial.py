@@ -95,7 +95,7 @@ def detect():
     cv2.destroyAllWindows()
     carouselDetect(adBoundPos)
     if findMaterial:
-        os.system(ADB_DIR + "adb shell input swipe 1250 1550 1200 1000")
+        os.system(ADB_DIR + "adb shell input swipe 1250 1550 1250 1000")
 
 
 # is a carousel?
@@ -113,7 +113,8 @@ def carouselDetect(adBoundPos):
         time.sleep(0.3)
         # wait a moment to prevent hasn`t finish move
         adbGrap(ADB_DIR, FILE_NAME)
-        carouselDetect(adBoundPos)
+        #carouselDetect(adBoundPos)
+        detect()
 
 
 
