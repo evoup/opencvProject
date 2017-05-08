@@ -20,11 +20,11 @@ def checkTemplate(img, template):
     for pt in zip(*loc[::-1]):
         cv2.rectangle(im1, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 12)
         print "accurately matched"
-        plt.subplot(121), plt.imshow(res, cmap='gray')
-        plt.title('Matching Result'), plt.xticks([]), plt.yticks([])
-        plt.subplot(122), plt.imshow(im1, cmap='gray')
-        plt.title('Detected Point'), plt.xticks([]), plt.yticks([])
-        plt.show()
+        # plt.subplot(121), plt.imshow(res, cmap='gray')
+        # plt.title('Matching Result'), plt.xticks([]), plt.yticks([])
+        # plt.subplot(122), plt.imshow(im1, cmap='gray')
+        # plt.title('Detected Point'), plt.xticks([]), plt.yticks([])
+        # plt.show()
         print "y:%d" % pt[1]
         # 移动不好计算，从最低到最高，分三种情况
         if pt[1] > 2100:

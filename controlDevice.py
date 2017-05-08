@@ -2,6 +2,7 @@
 import os
 
 import time
+import traceback
 
 import cv2
 
@@ -16,8 +17,10 @@ def mainLoop():
     adbGrap(ADB_DIR, FILE_NAME)
     try:
         detect()
-    except:
+    except Exception,e:
         print "pattern recognize fail"
+        #print str(e)
+        #traceback.print_exc()
         cv2.destroyAllWindows()
     else:
         print "pattern recognize success"
