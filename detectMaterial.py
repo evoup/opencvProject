@@ -112,9 +112,20 @@ def carouselDetect(adBoundPos):
         os.system(ADB_DIR + "adb shell input swipe 1250 1300 900 1300")
         time.sleep(0.3)
         # wait a moment to prevent hasn`t finish move
+        img1 = cv2.imread(FILE_NAME, 1)
         adbGrap(ADB_DIR, FILE_NAME)
+        img2 = cv2.imread(FILE_NAME, 1)
+        if is_similar(img1, img2):
+            print "same"
+            os.system(ADB_DIR + "adb shell input swipe 1250 1550 1250 1000")
+        else:
+            print "different"
         #carouselDetect(adBoundPos)
         detect()
+
+
+def is_similar(im1, im2):
+    return im1.shape == im2.shape and not(np.bitwise_xor(im1, im2).any())
 
 
 
