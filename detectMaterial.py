@@ -5,7 +5,7 @@ import os
 
 import time
 
-from config import ADB_DIR, FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, COUNTRY
+from config import ADB_DIR, FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, COUNTRY, GRAB_MOBILE_WEB
 from grab import adbGrap
 from uiMatch import checkTemplate
 
@@ -13,7 +13,10 @@ from uiMatch import checkTemplate
 def detect():
     # fileName = os.getcwd() + '/materials/appui/0419_2.png'
     fileName = os.getcwd() + "/" + FILE_NAME
-    tempImg = os.getcwd() + '/materials/components/base/sponsor_content_'+ COUNTRY + '.png'
+    if GRAB_MOBILE_WEB:
+        tempImg = os.getcwd() + '/materials/components/base/mobileWeb/sponsor_content_' + COUNTRY + '_web.png'
+    else:
+        tempImg = os.getcwd() + '/materials/components/base/sponsor_content_'+ COUNTRY + '.png'
     if not checkTemplate(fileName, tempImg):
        return
     time.sleep(0.3)

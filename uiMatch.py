@@ -15,7 +15,7 @@ def checkTemplate(img, template):
     w, h = temp.shape[::-1]
     method = cv2.TM_CCOEFF_NORMED
     res = cv2.matchTemplate(im2, temp, method)
-    threshold = 0.997
+    threshold = 0.95
     loc = np.where(res >= threshold)
     for pt in zip(*loc[::-1]):
         cv2.rectangle(im1, pt, (pt[0] + w, pt[1] + h), (0, 0, 255), 12)
