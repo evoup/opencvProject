@@ -52,7 +52,7 @@ rectangle = False  # flag for drawing rect
 rect_over = False  # flag to check if rect drawn
 rect_or_mask = 100  # flag for selecting rect or mask mode
 value = DRAW_FG  # drawing initialized to FG
-thickness = 3  # brush thickness
+thickness = 20  # brush thickness
 
 
 def onmouse(event, x, y, flags, param):
@@ -113,12 +113,13 @@ if __name__ == '__main__':
         print("Correct Usage: python grabcut.py <filename> \n")
         # filename = '../data/lena.jpg'
         # filename = '/tmp/input0.jpg'
-        # filename = '/tmp/input1.jpg'
+        filename = '/tmp/input1.jpg'
+        #filename = 'materials/knockout/111.png'
         # filename = '/tmp/input2.png'
         # filename = '/tmp/input4.png'
         # filename = '/tmp/input5.png'
         # filename = '/tmp/input7.jpg'
-        filename = '/tmp/input8.jpg'
+        filename = 'materials/knockout/input12.jpg'
 
     img = cv2.imread(filename)
     img2 = img.copy()  # a copy of original image
