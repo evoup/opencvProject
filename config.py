@@ -6,4 +6,4 @@ SCREEN_WIDTH = 402
 SCREEN_HEIGHT = 743
 COUNTRY = 'en'
 MATERIAL_SAVE_DIR = '/home/evoup/project/data/grabMaterial/'
-GRAB_MOBILE_WEB = True
+GRAB_MOBILE_WEB = False
