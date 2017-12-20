@@ -7,3 +7,4 @@ SCREEN_HEIGHT = 743
 COUNTRY = 'en'
 MATERIAL_SAVE_DIR = '/home/evoup/project/data/grabMaterial/'
 GRAB_MOBILE_WEB = False
+ADB_SERIAL = "-s emulator-5556"

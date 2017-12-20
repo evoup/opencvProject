@@ -5,7 +5,7 @@ import os
 
 import time
 
-from config import ADB_DIR, FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, COUNTRY, GRAB_MOBILE_WEB
+from config import ADB_DIR, FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, COUNTRY, GRAB_MOBILE_WEB, ADB_SERIAL
 from grab import adbGrap
 from uiMatch import checkTemplate
 
@@ -20,7 +20,7 @@ def detect():
     if not checkTemplate(fileName, tempImg):
        return
     time.sleep(0.3)
-    adbGrap(ADB_DIR, FILE_NAME)
+    adbGrap(ADB_DIR, FILE_NAME, ADB_SERIAL)
     fileName_grayed = os.getcwd() + '/materials/appui/ad_gray.png'
     img = cv2.imread(fileName, 0)
     #resize
@@ -98,7 +98,7 @@ def detect():
     cv2.destroyAllWindows()
     carouselDetect(adBoundPos)
     if findMaterial:
-        os.system(ADB_DIR + "adb shell input swipe 1250 1550 1250 1000")
+        os.system(ADB_DIR + "adb " + ADB_SERIAL + " shell input swipe 1250 1550 1250 1000")
 
 
 # is a carousel?
@@ -112,15 +112,15 @@ def carouselDetect(adBoundPos):
                     adBoundPos['topLeft'][0]:adBoundPos['bottomRight'][0]].copy()
         cv2.imshow("cropImage", cropImage)
         cv2.waitKey(0)
-        os.system(ADB_DIR + "adb shell input swipe 1250 1300 900 1300")
+        os.system(ADB_DIR + "adb " + ADB_SERIAL + " shell input swipe 1250 1300 900 1300")
         time.sleep(0.3)
         # wait a moment to prevent hasn`t finish move
         img1 = cv2.imread(FILE_NAME, 1)
-        adbGrap(ADB_DIR, FILE_NAME)
+        adbGrap(ADB_DIR, FILE_NAME, ADB_SERIAL)
         img2 = cv2.imread(FILE_NAME, 1)
         if is_similar(img1, img2):
             print "same"
-            os.system(ADB_DIR + "adb shell input swipe 1250 1550 1250 1000")
+            os.system(ADB_DIR + "adb " + ADB_SERIAL + " shell input swipe 1250 1550 1250 1000")
         else:
             print "different"
         #carouselDetect(adBoundPos)
