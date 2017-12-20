@@ -119,7 +119,7 @@ if __name__ == '__main__':
         # filename = '/tmp/input4.png'
         # filename = '/tmp/input5.png'
         # filename = '/tmp/input7.jpg'
-        filename = 'materials/knockout/input12.jpg'
+        filename = 'materials/knockout/input14.jpg'
 
     img = cv2.imread(filename)
     img2 = img.copy()  # a copy of original image
