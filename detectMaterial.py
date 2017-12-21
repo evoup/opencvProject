@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 import cv2
-import dhash as dhash
+from PIL import Image
+import imagehash
 import numpy as np
 import os
 
 import time
+
+import scipy.misc
 
 from config import ADB_DIR, FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, COUNTRY, GRAB_MOBILE_WEB, ADB_SERIAL, SAVE_DIR
 from grab import adbGrap
@@ -112,8 +115,10 @@ def detect():
         cv2.imshow("cropImage", cropImage)
         grayImg = cv2.cvtColor(cropImage, cv2.COLOR_BGR2GRAY)
         cv2.imshow("grayImg", grayImg)
-        ###imageHash = dhash(grayImg)
-        ###cv2.imwrite(SAVE_DIR + imageHash, cropImage)
+        # convert cv to PIL.Image
+        hash = imagehash.average_hash(Image.fromarray(cv2.cvtColor(cropImage, cv2.COLOR_BGR2RGB)))
+        myHash = str(hash)
+        cv2.imwrite(SAVE_DIR + myHash + ".png", cropImage)
         cv2.waitKey(0)
     cv2.imshow('img', img)
     cv2.waitKey(0)
