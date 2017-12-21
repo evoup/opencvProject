@@ -21,6 +21,17 @@ def detect():
         tempImg = os.getcwd() + '/materials/components/base/mobileWeb/sponsor_content_' + COUNTRY + '_web.png'
     else:
         tempImg = os.getcwd() + '/materials/components/base/sponsor_content_'+ COUNTRY + '.png'
+    ###
+    bottomTempImg = os.getcwd() + '/materials/components/base/bottom.png'
+    if checkTemplate(fileName, bottomTempImg):
+        print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' + 'at bottom, let`s go top and do next round'
+        os.system(ADB_DIR + "adb " + ADB_SERIAL + " shell input swipe 0 1550 0 13000")
+        time.sleep(1)
+        os.system(ADB_DIR + "adb " + ADB_SERIAL + " shell input swipe 0 1550 0 12000")
+        time.sleep(1)
+        os.system(ADB_DIR + "adb " + ADB_SERIAL + " shell input swipe 0 1550 0 8000")
+        os.exit(0)
+    ###
     if not checkTemplate(fileName, tempImg):
        return
     time.sleep(0.3)

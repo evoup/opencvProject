@@ -14,6 +14,7 @@ from grab import adbGrap
 
 def mainLoop():
     os.system(ADB_DIR + "adb " + ADB_SERIAL + " shell input swipe 0 1550 0 1300")
+    time.sleep(1.7) # wait to check if close to bottom
     adbGrap(ADB_DIR, FILE_NAME, ADB_SERIAL)
     try:
         detect()
