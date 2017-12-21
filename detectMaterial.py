@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 import cv2
+import dhash as dhash
 import numpy as np
 import os
 
 import time
 
-from config import ADB_DIR, FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, COUNTRY, GRAB_MOBILE_WEB, ADB_SERIAL
+from config import ADB_DIR, FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, COUNTRY, GRAB_MOBILE_WEB, ADB_SERIAL, SAVE_DIR
 from grab import adbGrap
 from uiMatch import checkTemplate
 
@@ -58,28 +59,46 @@ def detect():
             print 'cnt left x:%d cnt right x:%d top y:%d bottom y:%d' % (cntx0, cntx1, cnty0, cnty1)
             width = cntx1 - cntx0
             height = cnty1 - cnty0
-            if abs(SCREEN_WIDTH - width) > 5 and width > 100:  # width limitation
+            try:
+                if componentTop > 0:
+                    pass
+            except NameError:
+                componentTop = SCREEN_HEIGHT
+            else:
+                pass
+
+            if abs(SCREEN_WIDTH - width) > 1 and width > 100:  # width limitation
                 if height > 100:  # must be our target
-                    res = cv2.drawContours(img, [box], 0, (0, 255, 0), 2)
+                    cv2.drawContours(img, [box], 0, (0, 255, 0), 2)
                     adBoundPos['topLeft'] = box[1]
                     adBoundPos['topRight'] = box[2]
                     adBoundPos['bottomLeft'] = box[0]
-                    adBoundPos['bottomRight'] = box[3]
+                    adBoundPos['bottomRight'] = box[3] # should be topRight!
                     print '>>draw contour %d' % i
                 else:  # is a component area
-                    res = cv2.drawContours(img, [box], 0, (0, 0, 255), 2)
+                    cv2.drawContours(img, [box], 0, (0, 0, 255), 1)
                     componentHeight = box[0][1] - box[2][1]
+                    componentTopLeft = box[3]
+                    if componentTopLeft[1] < componentTop:
+                        componentTop = componentTopLeft[1] # save component position so we can adjust target according to it
                     adBoundPos['bottomLeft'] = [adBoundPos['bottomLeft'][0], adBoundPos['bottomLeft'][1] - height - 8]
                     adBoundPos['bottomRight'] = [adBoundPos['bottomRight'][0],
                                                  adBoundPos['bottomRight'][1] - height - 8]
                     print '>>draw contour %d' % i
                     # print approx
-                    # break
+                    # break6
     # draw ad area
     findMaterial = False
     if abs(adBoundPos['topLeft'][1] - adBoundPos['topRight'][1]) > 10:
         print "not a valid rectangle region"
     else:
+        # adjust target bottom position
+        if componentTop - adBoundPos['bottomLeft'][1] > 10:
+            adBoundPos['bottomLeft'][1] = componentTop
+            adBoundPos['bottomRight'][1] = componentTop
+        print "componentTop:%d" % componentTop
+        ###print "adBoundPos['bottomLeft'][1]:" + adBoundPos['bottomLeft'][1]
+        ###print "adBoundPos['bottomRight'][1]:" + adBoundPos['bottomRight'][1]
         cv2.drawContours(img, [
             np.array([adBoundPos['topLeft'], adBoundPos['bottomLeft'], adBoundPos['bottomRight'], adBoundPos['topRight']])],
                          0, (255, 0, 0), 1)
@@ -91,6 +110,10 @@ def detect():
         cropImage = img1[adBoundPos['topLeft'][1]:adBoundPos['bottomRight'][1],
                     adBoundPos['topLeft'][0]:adBoundPos['bottomRight'][0]].copy()
         cv2.imshow("cropImage", cropImage)
+        grayImg = cv2.cvtColor(cropImage, cv2.COLOR_BGR2GRAY)
+        cv2.imshow("grayImg", grayImg)
+        ###imageHash = dhash(grayImg)
+        ###cv2.imwrite(SAVE_DIR + imageHash, cropImage)
         cv2.waitKey(0)
     cv2.imshow('img', img)
     cv2.waitKey(0)
