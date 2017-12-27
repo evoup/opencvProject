@@ -9,3 +9,4 @@ MATERIAL_SAVE_DIR = '/home/evoup/project/data/grabMaterial/'
 GRAB_MOBILE_WEB = False
 ADB_SERIAL = "-s emulator-5554"
 SAVE_DIR = "/services/grabFbAd/"
+DEBUG = False

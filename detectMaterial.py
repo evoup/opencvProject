@@ -9,7 +9,7 @@ import time
 
 import scipy.misc
 
-from config import ADB_DIR, FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, COUNTRY, GRAB_MOBILE_WEB, ADB_SERIAL, SAVE_DIR
+from config import ADB_DIR, FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, COUNTRY, GRAB_MOBILE_WEB, ADB_SERIAL, SAVE_DIR, DEBUG
 from grab import adbGrap
 from uiMatch import checkTemplate
 
@@ -123,16 +123,20 @@ def detect():
         img1 = cv2.resize(img1, (SCREEN_WIDTH, SCREEN_HEIGHT), interpolation=cv2.INTER_LINEAR)
         cropImage = img1[adBoundPos['topLeft'][1]:adBoundPos['bottomRight'][1],
                     adBoundPos['topLeft'][0]:adBoundPos['bottomRight'][0]].copy()
-        cv2.imshow("cropImage", cropImage)
+        if DEBUG:
+            cv2.imshow("cropImage", cropImage)
         grayImg = cv2.cvtColor(cropImage, cv2.COLOR_BGR2GRAY)
-        cv2.imshow("grayImg", grayImg)
+        if DEBUG:
+            cv2.imshow("grayImg", grayImg)
         # convert cv to PIL.Image
         hash = imagehash.average_hash(Image.fromarray(cv2.cvtColor(cropImage, cv2.COLOR_BGR2RGB)))
         myHash = str(hash)
         cv2.imwrite(SAVE_DIR + myHash + ".png", cropImage)
+        if DEBUG:
+            cv2.waitKey(0)
+    if DEBUG:
+        cv2.imshow('img', img)
         cv2.waitKey(0)
-    cv2.imshow('img', img)
-    cv2.waitKey(0)
     #time.sleep(3)
     cv2.destroyAllWindows()
     carouselDetect(adBoundPos)
@@ -149,8 +153,9 @@ def carouselDetect(adBoundPos):
         img1 = cv2.resize(img1, (SCREEN_WIDTH, SCREEN_HEIGHT), interpolation=cv2.INTER_LINEAR)
         cropImage = img1[adBoundPos['topLeft'][1]:adBoundPos['bottomRight'][1],
                     adBoundPos['topLeft'][0]:adBoundPos['bottomRight'][0]].copy()
-        cv2.imshow("cropImage", cropImage)
-        cv2.waitKey(0)
+        if DEBUG:
+            cv2.imshow("cropImage", cropImage)
+            cv2.waitKey(0)
         os.system(ADB_DIR + "adb " + ADB_SERIAL + " shell input swipe 1250 1300 900 1300")
         time.sleep(0.3)
         # wait a moment to prevent hasn`t finish move
