@@ -6,16 +6,17 @@ import traceback
 
 import cv2
 
-from config import ADB_DIR, FILE_NAME, ADB_SERIAL
+from config import ADB_DIR, FILE_NAME, ADB_SERIAL, ADB
 from detectMaterial import detect
 from grab import adbGrap
 
 
 
 def mainLoop():
-    os.system(ADB_DIR + "adb " + ADB_SERIAL + " shell input swipe 0 1550 0 1300")
+    moveShell = ADB + " " + ADB_SERIAL + " shell input swipe 0 1550 0 1300"
+    os.system(moveShell)
     time.sleep(1.7) # wait to check if close to bottom
-    adbGrap(ADB_DIR, FILE_NAME, ADB_SERIAL)
+    adbGrap(ADB, FILE_NAME, ADB_SERIAL)
     try:
         detect()
     except Exception,e:
