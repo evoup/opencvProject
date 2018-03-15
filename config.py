@@ -13,4 +13,4 @@ COUNTRY = 'en'
 GRAB_MOBILE_WEB = False
 ADB_SERIAL = "-s 127.0.0.1:62001"
 SAVE_DIR = os.path.join("D:/", "grabFbAd")
-DEBUG = True
+DEBUG = False

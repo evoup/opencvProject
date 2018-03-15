@@ -55,6 +55,7 @@ def detect():
     image, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     i = 0
     adBoundPos = {}
+    findComponent = False
     for cnt in contours:
         x, y, w, h = cv2.boundingRect(cnt)
         cv2.rectangle(image, (x, y), (x + w, y + h), (0, 0, 255), 2)
@@ -93,6 +94,7 @@ def detect():
                     adBoundPos['bottomRight'] = box[3] # should be topRight!
                     print '>>draw contour %d' % i
                 else:  # is a component area
+                    findComponent = True
                     cv2.drawContours(img, [box], 0, (0, 0, 255), 1)
                     componentHeight = box[0][1] - box[2][1]
                     componentTopLeft = box[3]
@@ -110,9 +112,10 @@ def detect():
         print "not a valid rectangle region"
     else:
         # adjust target bottom position
-        if componentTop - adBoundPos['bottomLeft'][1] > 10:
-            adBoundPos['bottomLeft'][1] = componentTop
-            adBoundPos['bottomRight'][1] = componentTop
+        if findComponent:
+            if componentTop - adBoundPos['bottomLeft'][1] > 10:
+                adBoundPos['bottomLeft'][1] = componentTop
+                adBoundPos['bottomRight'][1] = componentTop
         print "componentTop:%d" % componentTop
         ###print "adBoundPos['bottomLeft'][1]:" + adBoundPos['bottomLeft'][1]
         ###print "adBoundPos['bottomRight'][1]:" + adBoundPos['bottomRight'][1]
