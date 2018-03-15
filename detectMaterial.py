@@ -9,14 +9,15 @@ import time
 
 import scipy.misc
 
-from config import ADB_DIR, FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, COUNTRY, GRAB_MOBILE_WEB, ADB_SERIAL, SAVE_DIR, DEBUG
+from config import ADB_DIR, FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, COUNTRY, GRAB_MOBILE_WEB, ADB_SERIAL, SAVE_DIR, \
+    DEBUG, SAVE_FILE_NAME
 from grab import adbGrap
 from uiMatch import checkTemplate
 
 
 def detect():
     # fileName = os.getcwd() + '/materials/appui/0419_2.png'
-    fileName = os.getcwd() + "/" + FILE_NAME
+    fileName = SAVE_FILE_NAME
     if GRAB_MOBILE_WEB:
         tempImg = os.getcwd() + '/materials/components/base/mobileWeb/sponsor_content_' + COUNTRY + '_web.png'
     else:
@@ -35,13 +36,13 @@ def detect():
     if not checkTemplate(fileName, tempImg):
        return
     time.sleep(0.3)
-    adbGrap(ADB_DIR, FILE_NAME, ADB_SERIAL)
+    adbGrap()
     fileName_grayed = os.getcwd() + '/materials/appui/ad_gray.png'
     img = cv2.imread(fileName, 0)
     #resize
     img = cv2.resize(img, (SCREEN_WIDTH, SCREEN_HEIGHT), interpolation=cv2.INTER_LINEAR)
     global img
-    _, img = cv2.threshold(img, 254, 255, cv2.THRESH_BINARY)
+    _, img = cv2.threshold(img, 250, 255, cv2.THRESH_BINARY)
     #cv2.imshow('img', img)
     #cv2.waitKey(0)
     ######
@@ -63,6 +64,8 @@ def detect():
         peri = cv2.arcLength(cnt, True)
         approx = cv2.approxPolyDP(cnt, 0.02 * peri, True)
         cv2.drawContours(img, [box], 0, (0, 255, 255), 2) # yellow means all polygon
+        # cv2.imshow('s', img)
+        # cv2.waitKey(0)
         if len(approx) >= 4 and peri < float(1826) and peri > float(130):
             i += 1
             print 'contour %d detected, perimeter:%d' % (i, peri)
@@ -160,7 +163,7 @@ def carouselDetect(adBoundPos):
         time.sleep(0.3)
         # wait a moment to prevent hasn`t finish move
         img1 = cv2.imread(FILE_NAME, 1)
-        adbGrap(ADB_DIR, FILE_NAME, ADB_SERIAL)
+        adbGrap()
         img2 = cv2.imread(FILE_NAME, 1)
         if is_similar(img1, img2):
             print "same"
