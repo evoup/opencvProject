@@ -134,7 +134,7 @@ def detect():
         # convert cv to PIL.Image
         hash = imagehash.average_hash(Image.fromarray(cv2.cvtColor(cropImage, cv2.COLOR_BGR2RGB)))
         myHash = str(hash)
-        cv2.imwrite(SAVE_DIR + myHash + ".png", cropImage)
+        cv2.imwrite(SAVE_DIR + "/" + myHash + ".png", cropImage)
         if DEBUG:
             cv2.waitKey(0)
     if DEBUG:
