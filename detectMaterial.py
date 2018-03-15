@@ -42,9 +42,9 @@ def detect():
     #resize
     img = cv2.resize(img, (SCREEN_WIDTH, SCREEN_HEIGHT), interpolation=cv2.INTER_LINEAR)
     global img
-    _, img = cv2.threshold(img, 250, 255, cv2.THRESH_BINARY)
-    #cv2.imshow('img', img)
-    #cv2.waitKey(0)
+    _, img = cv2.threshold(img, 200, 255, cv2.THRESH_BINARY)
+    cv2.imshow('img', img)
+    cv2.waitKey(0)
     ######
     cv2.imwrite(fileName_grayed, img)
     oldImg = img.copy()
@@ -138,7 +138,7 @@ def detect():
         if DEBUG:
             cv2.waitKey(0)
     if DEBUG:
-        cv2.imshow('img', img)
+        cv2.imshow('myimg', img)
         cv2.waitKey(0)
     #time.sleep(3)
     cv2.destroyAllWindows()
