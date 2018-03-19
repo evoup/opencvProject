@@ -43,8 +43,8 @@ def detect():
     img = cv2.resize(img, (SCREEN_WIDTH, SCREEN_HEIGHT), interpolation=cv2.INTER_LINEAR)
     global img
     _, img = cv2.threshold(img, 200, 255, cv2.THRESH_BINARY)
-    cv2.imshow('img', img)
-    cv2.waitKey(0)
+    # cv2.imshow('img', img)
+    # cv2.waitKey(0)
     ######
     cv2.imwrite(fileName_grayed, img)
     oldImg = img.copy()
@@ -65,8 +65,9 @@ def detect():
         peri = cv2.arcLength(cnt, True)
         approx = cv2.approxPolyDP(cnt, 0.02 * peri, True)
         cv2.drawContours(img, [box], 0, (0, 255, 255), 2) # yellow means all polygon
-        # cv2.imshow('s', img)
-        # cv2.waitKey(0)
+        if DEBUG:
+            cv2.imshow('s', img)
+            cv2.waitKey(0)
         if len(approx) >= 4 and peri < float(1826) and peri > float(130):
             i += 1
             print 'contour %d detected, perimeter:%d' % (i, peri)
