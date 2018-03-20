@@ -7,10 +7,8 @@ import os
 
 import time
 
-import scipy.misc
-
-from config import ADB_DIR, FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, COUNTRY, GRAB_MOBILE_WEB, ADB_SERIAL, SAVE_DIR, \
-    DEBUG, SAVE_FILE_NAME
+from config import FILE_NAME, SCREEN_WIDTH, SCREEN_HEIGHT, COUNTRY, GRAB_MOBILE_WEB, ADB_SERIAL, SAVE_DIR, \
+    DEBUG, SAVE_FILE_NAME, ADB
 from grab import adbGrap
 from uiMatch import checkTemplate
 
@@ -26,11 +24,11 @@ def detect():
     bottomTempImg = os.getcwd() + '/materials/components/base/bottom.png'
     if checkTemplate(fileName, bottomTempImg):
         print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' + 'at bottom, let`s go top and do next round'
-        os.system(ADB_DIR + "adb " + ADB_SERIAL + " shell input swipe 0 1550 0 13000")
+        os.system(ADB + " " + ADB_SERIAL + " shell input swipe 0 1550 0 13000")
         time.sleep(1)
-        os.system(ADB_DIR + "adb " + ADB_SERIAL + " shell input swipe 0 1550 0 12000")
+        os.system(ADB + " " + ADB_SERIAL + " shell input swipe 0 1550 0 12000")
         time.sleep(1)
-        os.system(ADB_DIR + "adb " + ADB_SERIAL + " shell input swipe 0 1550 0 8000")
+        os.system(ADB + " " + ADB_SERIAL + " shell input swipe 0 1550 0 8000")
         os.exit(0)
     ###
     if not checkTemplate(fileName, tempImg):
@@ -41,7 +39,7 @@ def detect():
     img = cv2.imread(fileName, 0)
     #resize
     img = cv2.resize(img, (SCREEN_WIDTH, SCREEN_HEIGHT), interpolation=cv2.INTER_LINEAR)
-    global img
+    # global img
     _, img = cv2.threshold(img, 200, 255, cv2.THRESH_BINARY)
     # cv2.imshow('img', img)
     # cv2.waitKey(0)
@@ -148,7 +146,7 @@ def detect():
     cv2.destroyAllWindows()
     carouselDetect(adBoundPos)
     if findMaterial:
-        os.system(ADB_DIR + "adb " + ADB_SERIAL + " shell input swipe 1250 1550 1250 1000")
+        os.system(ADB + " " + ADB_SERIAL + " shell input swipe 0 1550 0 1000")
 
 
 # is a carousel?
@@ -163,7 +161,7 @@ def carouselDetect(adBoundPos):
         if DEBUG:
             cv2.imshow("cropImage", cropImage)
             cv2.waitKey(0)
-        os.system(ADB_DIR + "adb " + ADB_SERIAL + " shell input swipe 1250 1300 900 1300")
+        os.system(ADB + " " + ADB_SERIAL + " shell input swipe 1250 1300 900 1300")
         time.sleep(0.3)
         # wait a moment to prevent hasn`t finish move
         img1 = cv2.imread(FILE_NAME, 1)
@@ -171,7 +169,7 @@ def carouselDetect(adBoundPos):
         img2 = cv2.imread(FILE_NAME, 1)
         if is_similar(img1, img2):
             print "same"
-            os.system(ADB_DIR + "adb " + ADB_SERIAL + " shell input swipe 1250 1550 1250 1000")
+            os.system(ADB + " " + ADB_SERIAL + " shell input swipe 1250 1550 1250 1000")
         else:
             print "different"
         #carouselDetect(adBoundPos)

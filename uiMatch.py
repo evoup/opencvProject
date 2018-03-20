@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
 import os
 
-from config import ADB_DIR, SCREEN_WIDTH, SCREEN_HEIGHT, ADB_SERIAL, ADB
+from config import ADB_SERIAL, ADB
 
 
 def checkTemplate(img, template):

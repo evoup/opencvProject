@@ -5,7 +5,7 @@ import os
 from optparse import OptionParser
 from sys import argv
 
-ADB_DIR = os.path.join("c:", "adbdir")
+# ADB_DIR = os.path.join("c:/", "adbdir")
 ADB = os.path.join("c:/", "adbdir", "adb")
 FILE_NAME = "ad_screenshot.png"
 SAVE_FILE_NAME = os.path.join("d:/", "grabData", FILE_NAME)
