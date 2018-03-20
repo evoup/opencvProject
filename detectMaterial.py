@@ -66,7 +66,7 @@ def detect():
         if DEBUG:
             cv2.imshow('s', img)
             cv2.waitKey(0)
-        if len(approx) >= 4 and peri < float(1826) and peri > float(130):
+        if len(approx) >= 4 and peri < float(1864) and peri > float(130):
             i += 1
             print 'contour %d detected, perimeter:%d' % (i, peri)
             cntx0 = approx[0][0][0]
@@ -74,8 +74,8 @@ def detect():
             cnty0 = approx[0][0][1]
             cnty1 = approx[2][0][1]
             print 'cnt left x:%d cnt right x:%d top y:%d bottom y:%d' % (cntx0, cntx1, cnty0, cnty1)
-            width = cntx1 - cntx0
-            height = cnty1 - cnty0
+            width = abs(cntx1 - cntx0)
+            height = abs(cnty1 - cnty0)
             try:
                 if componentTop > 0:
                     pass
@@ -92,6 +92,7 @@ def detect():
                     adBoundPos['bottomLeft'] = box[0]
                     adBoundPos['bottomRight'] = box[3] # should be topRight!
                     print '>>draw contour %d' % i
+                    break  # founded!
                 else:  # is a component area
                     findComponent = True
                     cv2.drawContours(img, [box], 0, (0, 0, 255), 1)
