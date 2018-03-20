@@ -22,14 +22,23 @@ def detect():
         tempImg = os.getcwd() + '/materials/components/base/sponsor_content_'+ COUNTRY + '.png'
     ###
     bottomTempImg = os.getcwd() + '/materials/components/base/bottom.png'
-    if checkTemplate(fileName, bottomTempImg):
-        print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' + 'at bottom, let`s go top and do next round'
-        os.system(ADB + " " + ADB_SERIAL + " shell input swipe 0 1550 0 13000")
-        time.sleep(1)
-        os.system(ADB + " " + ADB_SERIAL + " shell input swipe 0 1550 0 12000")
-        time.sleep(1)
-        os.system(ADB + " " + ADB_SERIAL + " shell input swipe 0 1550 0 8000")
-        os.exit(0)
+
+    retry = 0
+    # if retry reach 3 times, we ensured that it`s in bottom.
+    while retry < 4:
+        if retry == 3:
+            print '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' + 'at bottom, let`s go top and do next round'
+            os.system(ADB + " " + ADB_SERIAL + " shell input swipe 0 1550 0 13000")
+            time.sleep(1)
+            os.system(ADB + " " + ADB_SERIAL + " shell input swipe 0 1550 0 12000")
+            time.sleep(1)
+            os.system(ADB + " " + ADB_SERIAL + " shell input swipe 0 1550 0 8000")
+            os.exit(0)
+        if checkTemplate(fileName, bottomTempImg):
+            retry = retry + 1
+            print "check bottom template retry:" + retry + "\n"
+        else:
+            break
     ###
     if not checkTemplate(fileName, tempImg):
        return
