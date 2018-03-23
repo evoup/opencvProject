@@ -2,7 +2,6 @@
 import os
 
 import time
-import traceback
 
 import cv2
 
@@ -32,7 +31,7 @@ def mainLoop():
 
 
 if __name__ == "__main__":
-    open_shell = ADB + " " + ADB_SERIAL +  " shell monkey -p com.facebook.katana -c android.intent.category.LAUNCHER 1"
+    open_shell = ADB + " " + ADB_SERIAL + " shell monkey -p com.facebook.katana -c android.intent.category.LAUNCHER 1"
     os.system(open_shell)
     time.sleep(3)
     while True:

@@ -46,4 +46,4 @@ if options.snapshot_file_suffix:
 
 if options.debugmode:
     DEBUG = True
-print "test"
+print "config loaded"
