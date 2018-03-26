@@ -75,7 +75,8 @@ def detect():
         if DEBUG:
             cv2.imshow('s', img)
             cv2.waitKey(0)
-        if len(approx) >= 4 and peri < float(1864) and peri > float(130):
+        # 根据四个估计点和周长判断是否是存在有效轮廓
+        if len(approx) >= 4 and peri < float(3000) and peri > float(130):
             i += 1
             print 'contour %d detected, perimeter:%d' % (i, peri)
             cntx0 = approx[0][0][0]
